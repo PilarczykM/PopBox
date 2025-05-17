@@ -37,8 +37,8 @@ uv sync
 - [ ] Set up directory structure
 - [x] Create `pyproject.toml` and initialize virtualenv with `uv`
 - [ ] Add `.env` and configuration loader using `python-dotenv`
-- [ ] Set up `Dockerfile` and `docker-compose.yml`
-- [ ] Enable Ruff and configure auto-formatting in `pyproject.toml`
+- [x] Set up `Dockerfile` and `docker-compose.yml`
+- [x] Enable Ruff and configure auto-formatting in `pyproject.toml`
 
 ## Stage 2 – API & Enqueue (Producer)
 - [ ] Build FastAPI route `POST /task` to enqueue tasks
