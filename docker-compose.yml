@@ -1,0 +1,30 @@
+version: "3.9"
+
+services:
+  api:
+    build: .
+    container_name: popbox-api
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    environment:
+      - ENV=dev
+    depends_on:
+      - valkey
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+  worker:
+    build: .
+    container_name: popbox-worker
+    volumes:
+      - .:/app
+    depends_on:
+      - valkey
+    command: python worker.py
+
+  valkey:
+    image: valkey/valkey:latest
+    container_name: popbox-valkey
+    ports:
+      - "6379:6379"
