@@ -1,4 +1,5 @@
 def main():
+    """Start main function."""
     print("Hello from popbox!")
 
 
