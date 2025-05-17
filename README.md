@@ -35,7 +35,7 @@ uv sync
 
 ## Stage 1 – Project Scaffolding
 - [ ] Set up directory structure
-- [ ] Create `pyproject.toml` and initialize virtualenv with `uv`
+- [x] Create `pyproject.toml` and initialize virtualenv with `uv`
 - [ ] Add `.env` and configuration loader using `python-dotenv`
 - [ ] Set up `Dockerfile` and `docker-compose.yml`
 - [ ] Enable Ruff and configure auto-formatting in `pyproject.toml`
