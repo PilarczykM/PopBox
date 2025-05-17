@@ -5,4 +5,4 @@ fix:
 	uv run ruff check . --fix
 
 format:
-	uv run ruff format . --diff
+	uv run ruff format
