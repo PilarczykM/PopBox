@@ -1,7 +1,7 @@
 [project]
 name = "popbox"
 version = "0.1.0"
-description = "PopBox is a lightweight event-driven task queue using FastAPI, Valkey (Redis-compatible), and asyncio. It features async task dispatching, retries, and scalable worker design — ideal for learning or as a base for background job systems."
+description = "PopBox is a lightweight event-driven task queue using FastAPI, Redis, and asyncio. It features async task dispatching, retries, and scalable worker design — ideal for learning or as a base for background job systems."
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
