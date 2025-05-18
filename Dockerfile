@@ -11,6 +11,9 @@ RUN sh /uv-installer.sh && rm /uv-installer.sh
 
 # Ensure the installed binary is on the `PATH`
 ENV PATH="/root/.local/bin/:$PATH"
+ENV UV_SYSTEM_PYTHON=true
+ENV UV_PYTHON=/usr/local/bin/python
+
 
 # Copy the project into the image
 ADD . /app
