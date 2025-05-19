@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 
 from app.dependencies import get_task_queue
 from app.errors.task_queue_error import TaskQueueError
@@ -32,4 +32,4 @@ async def create_task(
         await queue.enqueue(task.model_dump())
         return {"status": "queued", "type": task.type, "payload": task.payload.model_dump_json()}
     except TaskQueueError as e:
-        return {"status": "error", "message": str(e)}
+        raise HTTPException(status_code=424, detail={"status": "error", "message": str(e)})

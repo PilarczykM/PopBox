@@ -10,7 +10,7 @@ from app.interfaces.task_queue import TaskQueue
 class RedisTaskQueue(TaskQueue):
     """Redis implementation of TaskQueue."""
 
-    def __init__(self, redis_url: str = "redis://redis:6379", default_queue: str = "default") -> None:
+    def __init__(self, redis_url: str, default_queue: str = "default") -> None:
         self._redis = redis.from_url(redis_url, decode_responses=True)
         self._default_queue = default_queue
 
