@@ -4,6 +4,8 @@ services:
     container_name: popbox-api
     ports:
       - "8000:8000"
+    environment:
+      REDIS_URL: redis://redis:6379
     develop:
       # Create a `watch` configuration to update the app
       # https://docs.docker.com/compose/file-watch/#compose-watch-versus-bind-mounts
