@@ -1,30 +1,41 @@
-version: "3.9"
-
 services:
   api:
     build: .
     container_name: popbox-api
     ports:
       - "8000:8000"
-    volumes:
-      - .:/app
     environment:
-      - ENV=dev
-    depends_on:
-      - valkey
-    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+      REDIS_URL: redis://redis:6379
+    develop:
+      # Create a `watch` configuration to update the app
+      # https://docs.docker.com/compose/file-watch/#compose-watch-versus-bind-mounts
+      watch:
+        # Sync the working directory with the `/app` directory in the container
+        - action: sync
+          path: .
+          target: /app
+          # Exclude the project virtual environment — it could be for a
+          # different platform in the container
+          ignore:
+            - .venv/
 
-  worker:
-    build: .
-    container_name: popbox-worker
-    volumes:
-      - .:/app
+        # Rebuild the image if dependencies change by checking uv.lock
+        - action: rebuild
+          path: ./uv.lock
     depends_on:
-      - valkey
-    command: python worker.py
+      - redis
 
-  valkey:
-    image: valkey/valkey:latest
-    container_name: popbox-valkey
+  # worker:
+  #   build: .
+  #   container_name: popbox-worker
+  #   volumes:
+  #     - .:/app
+  #   depends_on:
+  #     - redis
+  #   command: python worker.py
+
+  redis:
+    image: redis:8
+    container_name: popbox-redis
     ports:
       - "6379:6379"

@@ -1,14 +1,14 @@
 # PopBox
-PopBox is a lightweight event-driven task queue using FastAPI, Valkey (Redis-compatible), and asyncio. It features async task dispatching, retries, and scalable worker design — ideal for learning or as a base for background job systems.
+PopBox is a lightweight event-driven task queue using FastAPI, Redis, and asyncio. It features async task dispatching, retries, and scalable worker design — ideal for learning or as a base for background job systems.
 
 ---
 
 ## 📦 Tech Stack
 
 | Area                | Technology                        |
-| ------------------- | --------------------------------- |
+|---------------------|-----------------------------------|
 | API Backend         | FastAPI                           |
-| Queue & Broker      | Valkey (Redis alternative)        |
+| Queue & Broker      | Redis                             |
 | Worker              | Python asyncio                    |
 | Packaging           | uv (PEP 621 project manager)      |
 | Lint & Format       | Ruff (unified tool)               |
@@ -41,9 +41,9 @@ uv sync
 - [x] Enable Ruff and configure auto-formatting in `pyproject.toml`
 
 ## Stage 2 – API & Enqueue (Producer)
-- [ ] Build FastAPI route `POST /task` to enqueue tasks
-- [ ] Use `RPUSH` to add tasks to Valkey queue
-- [ ] JSON-serialize task payloads
+- [x] Build FastAPI route `POST /task` to enqueue tasks
+- [x] Use `RPUSH` to add tasks to Redis queue
+- [x] JSON-serialize task payloads
 - [ ] Start with basic task: `send_email`
 
 ## Stage 3 – Worker (Consumer)
@@ -74,7 +74,7 @@ uv sync
     - Task execution count (`Counter`)
     - Task duration (`Histogram`)
     - Retry and failure count (`Counter`)
-    - Queue length via Valkey's `LLEN`
+    - Queue length via Redis's `LLEN`
 
 - [ ] Configure Prometheus in `docker-compose.yml` with proper scrape settings
 - [ ] Add Grafana to `docker-compose.yml` and link it to Prometheus
@@ -118,7 +118,7 @@ Client
 POST /task (FastAPI)
    |
    v
-Valkey Queue (RPUSH)
+Redis Queue (RPUSH)
    |
    v
 Worker (BLPOP)
@@ -130,7 +130,7 @@ Task Handler (send_email, generate_report, etc.)
 **Component Overview:**
 
 * Client/API Layer: Sends tasks to the system
-* Valkey Queue: Stores tasks until consumed
+* Redis Queue: Stores tasks until consumed
 * Worker: Listens for new tasks and executes them
 * Task Handlers: Implement specific logic per task type
 
@@ -178,7 +178,7 @@ Tracing tools like OpenTelemetry can also be integrated for deep visibility into
 
 ---
 
-# 🔁 Queue Design (Valkey)
+# 🔁 Queue Design (Redis)
 * RPUSH queue_name → enqueue
 * BLPOP queue_name → blocking dequeue
 * Retry on failure → custom logic or exponential backoff
@@ -187,5 +187,5 @@ Tracing tools like OpenTelemetry can also be integrated for deep visibility into
 # 🧠 Optional Extensions
 * Dead-letter TTL expiration and monitoring
 * Prometheus integration (for metrics)
-* API Rate limiting with Valkey
+* API Rate limiting with Redis
 * Multi-priority queues
