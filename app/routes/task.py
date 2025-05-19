@@ -32,4 +32,4 @@ async def create_task(
         await queue.enqueue(task.model_dump())
         return {"status": "queued", "type": task.type, "payload": task.payload.model_dump_json()}
     except TaskQueueError as e:
-        raise HTTPException(status_code=424, detail={"status": "error", "message": str(e)})
+        raise HTTPException(status_code=424, detail={"status": "error", "message": str(e)}) from e
