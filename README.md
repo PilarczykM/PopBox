@@ -41,9 +41,9 @@ uv sync
 - [x] Enable Ruff and configure auto-formatting in `pyproject.toml`
 
 ## Stage 2 – API & Enqueue (Producer)
-- [ ] Build FastAPI route `POST /task` to enqueue tasks
-- [ ] Use `RPUSH` to add tasks to Redis queue
-- [ ] JSON-serialize task payloads
+- [x] Build FastAPI route `POST /task` to enqueue tasks
+- [x] Use `RPUSH` to add tasks to Redis queue
+- [x] JSON-serialize task payloads
 - [ ] Start with basic task: `send_email`
 
 ## Stage 3 – Worker (Consumer)
